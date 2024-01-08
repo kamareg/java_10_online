@@ -4,9 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-// реализуи?те задачу, которая принимает строку с консоли
-// и вычленяет все символы латиницы/кириллицы и сортирует их,
-// указывая количество вхождении? каждого символа
 public class Task2 {
     public static void main(String[] args) throws IOException {
         String result = getString();
