@@ -1,8 +1,15 @@
-module ua.com.alevel.hw_7 {
+module ua.com.alevel {
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens ua.com.alevel.hw_7 to javafx.fxml;
-    exports ua.com.alevel.hw_7;
+    opens ua.com.alevel to javafx.fxml;
+    exports ua.com.alevel;
+
+    exports ua.com.alevel.controller;
+    exports ua.com.alevel.entity;
+    exports ua.com.alevel.service;
+
+    opens ua.com.alevel.controller to javafx.fxml;
+    exports ua.com.alevel.db.bookAuthor;
 }

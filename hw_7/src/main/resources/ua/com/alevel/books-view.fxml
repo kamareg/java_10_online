@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ua.com.alevel.controller.BookController">
+    <children>
+        <TableView fx:id="booksTable" layoutX="45.0" layoutY="22.0" prefHeight="198.0"
+                   prefWidth="518.0">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="163.0" text="ID"/>
+                <TableColumn fx:id="titleColumn" minWidth="0.0" prefWidth="279.0" text="Title"/>
+                <TableColumn fx:id="yearColumn" prefWidth="75.0" text="Year"/>
+            </columns>
+        </TableView>
+        <VBox layoutX="45.0" layoutY="246.0" prefHeight="109.0" prefWidth="397.0">
+            <children>
+                <HBox prefHeight="100.0" prefWidth="381.0">
+                    <children>
+                        <Label prefHeight="36.0" prefWidth="60.0" text="ID"/>
+                        <TextField prefHeight="36.0" prefWidth="256.0" fx:id="bookIdText"/>
+                        <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="78.0"
+                                text="Clear" fx:id="bookIdClear" onAction="#clearField"/>
+                    </children>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="397.0">
+                    <children>
+                        <Label prefHeight="36.0" prefWidth="60.0" text="Title"/>
+                        <TextField prefHeight="36.0" prefWidth="256.0" fx:id="bookTitleText"/>
+                        <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="78.0"
+                                text="Clear" fx:id="bookTitleClear" onAction="#clearField"/>
+                    </children>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label prefHeight="36.0" prefWidth="60.0" text="Year"/>
+                        <TextField prefHeight="36.0" prefWidth="256.0" fx:id="bookYearText"/>
+                        <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="78.0"
+                                text="Clear" fx:id="bookYearClear" onAction="#clearField"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+        <HBox layoutX="45.0" layoutY="361.0" prefHeight="25.0" prefWidth="397.0">
+            <children>
+                <Label prefHeight="25.0" prefWidth="414.0" fx:id="warnTextField"/>
+            </children>
+        </HBox>
+        <VBox layoutX="465.0" layoutY="236.0" prefHeight="125.0" prefWidth="96.0">
+            <children>
+                <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="100.0"
+                        onAction="#create" text="Create"/>
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0"
+                        onAction="#update" text="Update"/>
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0"
+                        onAction="#readById" text="Find by ID"/>
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0"
+                        onAction="#delete" text="Delete"/>
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0"
+                        onAction="#showAuthorsOfBook" text="Book-Author"/>
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0"
+                        onAction="#showWelcomePage" text="Back"/>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

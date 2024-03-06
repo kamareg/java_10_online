@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<BorderPane
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="ua.com.alevel.controller.WelcomeController"
+        prefHeight="400.0" prefWidth="600.0"
+        BorderPane.alignment="CENTER">
+    <top>
+        <Label alignment="CENTER" prefHeight="38.0" prefWidth="131.0" style="&#10;" text="Welcome!"
+               textAlignment="CENTER" wrapText="false" BorderPane.alignment="CENTER">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+    </top>
+    <center>
+        <Label alignment="CENTER" prefHeight="40.0" prefWidth="367.0" style="&#10;"
+               text="Let's choose what you are interested in now:" textAlignment="CENTER"
+               wrapText="false" BorderPane.alignment="CENTER">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+    </center>
+    <bottom>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT"
+                    prefHeight="96.0" prefWidth="419.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="30.0"
+                        minWidth="64.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0"
+                        text="Books" onAction="#showBooks"/>
+                <Button alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" layoutY="29.0"
+                        mnemonicParsing="false" prefHeight="27.0" prefWidth="111.0" text="Authors"
+                        onAction="#showAuthors"/>
+            </children>
+        </AnchorPane>
+    </bottom>
+</BorderPane>
