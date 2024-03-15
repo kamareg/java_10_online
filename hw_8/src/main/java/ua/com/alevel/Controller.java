@@ -55,6 +55,10 @@ public class Controller {
         switch (input) {
             case "1" -> readDirectory(directory);
             case "2" -> createFileOrDirectory(directory);
+            case "3" -> deleteFileOrDirectory(directory);
+            case "4" -> moveFileOrDirectory(directory);
+            case "5" -> searchFileOrDirectory(directory);
+            case "6" -> searchTextInFileOrDirectory(directory);
             case "7" -> throw new RuntimeException("Change directory or exit");
         }
     }
@@ -99,21 +103,96 @@ public class Controller {
         String fileName = reader.readLine();
         if (fileName.isBlank()) {
             System.out.println("Empty " + chosenType + " name");
-        } else if (!fileName.matches(".*[/\\\\:*?<>\"|].*")) {
-            File file = new File(directory.getAbsolutePath() + File.separator + fileName);
-            try {
-                if (isFile ? file.createNewFile() : file.mkdir()) {
-                    System.out.println("A " + chosenType + " was created");
-                } else {
-                    System.out.println("A " + chosenType + " is already exists");
-                }
-            } catch (IOException e) {
-                System.out.println("A " + chosenType + " wasn't created: " + e.getMessage());
-            }
+        } else if (checkSpecialSymbols(fileName)) {
+            createFileOrDirectory(directory, isFile, chosenType, fileName);
         } else {
-            System.out.println("A " + chosenType + " name can't contain some special symbols");
+            System.out.println("Name can't contain some special symbols");
         }
     }
 
+    private boolean checkSpecialSymbols(String fileName) {
+        return !fileName.matches(".*[/\\\\:*?<>\"|].*");
+    }
 
+    private void createFileOrDirectory(File directory, boolean isFile, String chosenType, String fileName) {
+        File file = new File(directory.getAbsolutePath() + File.separator + fileName);
+        try {
+            if (isFile ? file.createNewFile() : file.mkdir()) {
+                System.out.println("A " + chosenType + " was created");
+            } else {
+                System.out.println("A " + chosenType + " is already exists");
+            }
+        } catch (IOException e) {
+            System.out.println("A " + chosenType + " wasn't created: " + e.getMessage());
+        }
+    }
+
+    private void deleteFileOrDirectory(File directory) throws IOException {
+        readDirectory(directory);
+        System.out.println("What file or directory do you want to delete?");
+        File file = searching(directory);
+        if (!file.getAbsolutePath().equals(directory.getAbsolutePath())) {
+            if (file.delete()) {
+                System.out.println("Was deleted successfully");
+            } else {
+                System.out.println("Something wrong");
+            }
+        }
+    }
+
+    private void moveFileOrDirectory(File directory) throws IOException {
+        readDirectory(directory);
+        System.out.println("What file or folder do you want to move?");
+        String oldFileName = reader.readLine();
+        File oldFile = new File(directory.getAbsolutePath() + File.separator + oldFileName);
+        if (!oldFileName.isBlank() && oldFile.exists() && checkSpecialSymbols(oldFileName)) {
+            System.out.println("Enter new directory full path");
+            String newDirectoryName = reader.readLine();
+            File newFile = new File(newDirectoryName + File.separator + oldFileName);
+            if (!newFile.exists() && new File(newDirectoryName).isDirectory()) {
+                if (oldFile.renameTo(newFile)) {
+                    System.out.println("Successfully moved");
+                } else {
+                    System.out.println("Something wrong");
+                }
+            } else {
+                System.out.println("File is already exist or such directory was not found");
+            }
+        } else {
+            System.out.println("Such file or directory doesn't exist");
+        }
+    }
+
+    private void searchFileOrDirectory(File directory) throws IOException {
+        System.out.println("What file do we need to find?");
+        File file = searching(directory);
+        if (!file.getAbsolutePath().equals(directory.getAbsolutePath())) {
+            System.out.println("File was found: " + file);
+        }
+    }
+
+    private File searching(File directory) throws IOException {
+        String fileName = reader.readLine();
+        for (File file : directory.listFiles()) {
+            if (file.getName().equals(fileName)) {
+                return file;
+            }
+        }
+        System.out.println("File or directory doesn't exist");
+        return directory;
+    }
+
+    private void searchTextInFileOrDirectory(File directory) throws IOException {
+        if (directory.listFiles().length == 0) {
+            System.out.println("Directory is empty");
+        } else {
+            System.out.println("What text do we need to find?");
+            String fileName = reader.readLine();
+            for (File file : directory.listFiles()) {
+                if (file.getName().contains(fileName)) {
+                    System.out.println(file);
+                }
+            }
+        }
+    }
 }
