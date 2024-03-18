@@ -132,12 +132,31 @@ public class Controller {
         System.out.println("What file or directory do you want to delete?");
         File file = searching(directory);
         if (!file.getAbsolutePath().equals(directory.getAbsolutePath())) {
-            if (file.delete()) {
-                System.out.println("Was deleted successfully");
+            if (!file.isDirectory()) {
+                deleteFile(file);
             } else {
-                System.out.println("Something wrong");
+                deleteDirectory(file);
             }
         }
+    }
+
+    private void deleteFile(File file) {
+        if (file.delete()) {
+            System.out.println(file.getAbsolutePath() + " was deleted successfully");
+        } else {
+            System.out.println("Something wrong");
+        }
+    }
+
+    private void deleteDirectory(File directory) {
+        for (File file : directory.listFiles()) {
+            if (file.isDirectory()) {
+                deleteDirectory(file);
+            } else {
+                deleteFile(file);
+            }
+        }
+        deleteFile(directory);
     }
 
     private void moveFileOrDirectory(File directory) throws IOException {
