@@ -1,0 +1,52 @@
+8
+Kyiv
+7
+2 256
+3 550
+4 551
+5 538
+6 388
+7 478
+8 806
+Vinnitsa
+3
+1 256
+3 360
+6 382
+Lviv
+6
+1 550
+2 360
+7 1028
+8 261
+5 278
+6 152
+Kherson
+1
+1 551
+Chernivtsi
+2
+1 538
+3 278
+Lutsk
+4
+1 388
+3 152
+2 382
+8 413
+Kharkiv
+3
+3 1028
+1 478
+8 1299
+Uzhgorod
+4
+1 806
+6 413
+3 261
+7 1299
+4
+Kharkiv Kherson
+Uzhgorod Lutsk
+Lviv Kherson
+Kharkiv Vinnitsa
