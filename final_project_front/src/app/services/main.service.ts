@@ -23,8 +23,14 @@ export class MainService {
   updateOrder(productInOrder: ProductInOrder, order: Order | undefined): Observable<any> {
     const requestBody = {
       order: order,
-      productInOrder: productInOrder
+      product: productInOrder.product,
+      count: productInOrder.count
     };
     return this.http.post(`${this.url}/update`, requestBody);
+  }
+
+  makeAnOrder(order: Order | undefined): Observable<Object>{
+    console.log(order)
+    return this.http.put(`${this.url}/update`, order);
   }
 }

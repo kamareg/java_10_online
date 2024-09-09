@@ -7,5 +7,4 @@ import java.util.Optional;
 
 @Repository
 public interface ProductInOrderRepository extends BaseRepository<ProductInOrder>{
-    Optional<ProductInOrder> findByProductId(Long productId);
 }

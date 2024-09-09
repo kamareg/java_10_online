@@ -13,9 +13,6 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "product")
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@MappedSuperclass
-//@DiscriminatorColumn(name = "product_type")
 public class Product extends BaseEntity {
 
     @Column(nullable = false)

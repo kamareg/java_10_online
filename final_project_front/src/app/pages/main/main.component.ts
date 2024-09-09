@@ -6,6 +6,7 @@ import {Order} from "../../models/order";
 import {ProductInOrder} from "../../models/product_in_order";
 import {ProductItemComponent} from "../product-item/product-item.component";
 import {Router} from "@angular/router";
+import {combineLatest} from 'rxjs';
 
 @Component({
   selector: 'app-main',
@@ -14,50 +15,43 @@ import {Router} from "@angular/router";
   templateUrl: './main.component.html',
 })
 export class MainComponent implements OnInit {
-  products?: ProductInOrder[] = []
+  products: ProductInOrder[] = [];
   fastFoodProducts?: ProductInOrder[];
   drinksProducts?: ProductInOrder[];
   burgerProducts?: ProductInOrder[];
-  order?: Order
+  order?: Order;
 
   constructor(private mainService: MainService, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.loadProducts();
-    this.getCurrentOrder();
+    this.loadOrderAndProducts();
   }
 
-  loadProducts(): void {
-    this.mainService.loadProducts()
-      .subscribe((prod: Product[]) => {
-        prod.forEach((product) => {
-          const productInOrder = this.products?.find(p => p.product.id === product.id);
-          if (!productInOrder) {
-            this.products?.push({product: product, count: 0});
-          }
-        });
+  loadOrderAndProducts(): void {
+    combineLatest([
+      this.mainService.getCurrentOrder(),
+      this.mainService.loadProducts()
+    ]).subscribe(([order, products]: [Order, Product[]]) => {
+      this.order = order;
+      this.products = products.map(product => {
+        const productInOrder = order.products.find(p => p.product.id === product.id);
+        return {
+          product: product,
+          count: productInOrder ? productInOrder.count : 0
+        };
       });
+      this.groupProductsByType();
+    });
   }
 
-  getCurrentOrder(): void {
-    this.mainService.getCurrentOrder()
-      .subscribe(order => {
-        console.log(order);
-        this.order = order;
-        order.products.forEach((productInOrder) => {
-          const matchingProduct = this.products?.find(p => p.product.id === productInOrder.product.id);
-          if (matchingProduct) {
-            matchingProduct.count = productInOrder.count;
-          }
-        });
-        this.fastFoodProducts = this.products?.filter(product => product.product.type === 'FAST_FOOD');
-        this.drinksProducts = this.products?.filter(product => product.product.type === 'DRINK');
-        this.burgerProducts = this.products?.filter(product => product.product.type === 'BURGER');
-      });
+  groupProductsByType(): void {
+    this.fastFoodProducts = this.products.filter(product => product.product.type === 'FAST_FOOD');
+    this.drinksProducts = this.products.filter(product => product.product.type === 'DRINK');
+    this.burgerProducts = this.products.filter(product => product.product.type === 'BURGER');
   }
 
   goToCard(): void {
-    this.router.navigateByUrl(`card`)
+    this.router.navigateByUrl(`card`);
   }
 }
