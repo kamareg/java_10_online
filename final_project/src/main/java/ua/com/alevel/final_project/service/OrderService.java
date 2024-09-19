@@ -1,32 +1,23 @@
 package ua.com.alevel.final_project.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 import ua.com.alevel.final_project.entity.Order;
 import ua.com.alevel.final_project.entity.User;
 import ua.com.alevel.final_project.enums.Status;
-import ua.com.alevel.final_project.repository.OrderRepository;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 
-@Service
-@AllArgsConstructor
-public class OrderService {
+public interface OrderService {
+    Order getCurrentOrder(User currentUser);
 
-    private final OrderRepository orderRepository;
+    Order createNewOrderForUser(User user);
 
-    public Order findActiveOrderByUser(User user) {
-        return orderRepository.findByUserAndStatus(user, Status.NEW);
-    }
+    Order findById(Long id);
 
-    public Order createNewOrderForUser(User user) {
-        Order newOrder = new Order();
-        newOrder.setUser(user);
-        newOrder.setProducts(new HashSet<>());
-        newOrder.setCost(new BigDecimal(0));
-        newOrder.setStatus(Status.NEW);
-        return orderRepository.save(newOrder);
-    }
+    void create(Order order);
+
+    void updateStatus(Long orderId, Status status);
+
+    List<Order> findAllOrders();
+
+    List<Order> findAllByUser_Id(Long id);
 }

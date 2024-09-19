@@ -4,5 +4,11 @@ export interface Product {
   description: string;
   imageUrl: string;
   price: number;
-  type: string;
+  type: Type;
+}
+
+export enum Type {
+  FAST_FOOD = 'FAST_FOOD',
+  DRINK = 'DRINK',
+  BURGER = 'BURGER'
 }

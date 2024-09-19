@@ -1,27 +1,27 @@
 <div class="custom-products-container mt-2">
   <div class="custom-product-item" *ngFor="let product of products">
-      <div class="card">
-        <img src="{{ product.product.imageUrl }}" class="card-img-top" alt="...">
-        <div class="card-header">
-          <h3 class="card-title">{{ product.product.name }}</h3>
+    <div class="card">
+      <img src="{{ product.product.imageUrl }}" class="card-img-top" alt="...">
+      <div class="card-header">
+        <h3 class="card-title">{{ product.product.name }}</h3>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ product.product.description }}</h5>
+      </div>
+      <div class="card-footer">
+        <div class="text-center">
+          <button
+            type="button" class="btn btn-warning btn-lg" (click)="decreaseCount(product)">-
+          </button>
+          <span class="fs-4 m-2">{{ product.count }}</span>
+          <button
+            type="button" class="btn btn-warning btn-lg" (click)="increaseCount(product)">+
+          </button>
         </div>
-        <div class="card-body">
-          <h5 class="card-title">{{ product.product.description }}</h5>
-        </div>
-        <div class="card-footer">
-          <div class="text-center">
-            <button
-              type="button" class="btn btn-warning btn-lg" (click)="decreaseCount(product)">-
-            </button>
-            <span class="fs-4 m-2">{{ product.count }}</span>
-            <button
-              type="button" class="btn btn-warning btn-lg" (click)="increaseCount(product)">+
-            </button>
-          </div>
-        </div>
-        <div class="card-footer">
-          <h3 class="card-text text-center text-danger">${{ product.product.price }}</h3>
-        </div>
+      </div>
+      <div class="card-footer">
+        <h3 class="card-text text-center text-danger">${{ product.product.price }}</h3>
       </div>
     </div>
   </div>
+</div>

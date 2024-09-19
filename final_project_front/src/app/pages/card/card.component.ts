@@ -3,6 +3,8 @@ import {Order} from "../../models/order";
 import {MainService} from "../../services/main.service";
 import {Router} from "@angular/router";
 import {NgForOf} from "@angular/common";
+import {catchError, of} from "rxjs";
+
 declare var bootstrap: any;
 
 @Component({
@@ -15,23 +17,33 @@ declare var bootstrap: any;
 })
 export class CardComponent implements OnInit {
   order?: Order
+
   constructor(private mainService: MainService, private router: Router) {
   }
+
   ngOnInit(): void {
-    this.getCurrentOrder();
+    this.getCurrentOrder().subscribe({
+      next: (data) => {
+        if (data) {
+          this.order = data
+        }
+      }
+    });
   }
-  getCurrentOrder(): void {
-    this.mainService.getCurrentOrder()
-      .subscribe(order => {
-        this.order = order;
-      });
+
+  getCurrentOrder() {
+    return (this.mainService.getCurrentOrder()).pipe(
+      catchError(() => {
+        this.mainService.handleInvalidToken();
+        return of(null);
+      }))
   }
+
   goToShopping(): void {
     this.router.navigateByUrl(`tastyBurgers`)
   }
 
-  makeAnOrder(): void{
-    console.log(this.order)
+  makeAnOrder(): void {
     this.mainService.makeAnOrder(this.order)
       .subscribe(res => {
         this.showSuccessModal();

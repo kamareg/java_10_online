@@ -1,0 +1,37 @@
+<div class="custom-product-item m-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="mb-3">
+        <label class="form-label">Email address</label>
+        <input type="email" class="form-control" [(ngModel)]="email" id="emailInput" placeholder="name@example.com">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" [(ngModel)]="password" id="passwordInput"
+               placeholder="enter your password here">
+      </div>
+      <div class="mb-3">
+        <button type="button" class="btn btn-primary btn-lg" (click)="onLogin()">
+          Log In
+        </button>
+      </div>
+      <h6 class="card-text">
+        To create new account <a [routerLink]="['/auth/reg']">click here</a>
+      </h6>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="noSuccessModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Something wrong!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Please check correctness of your credentials!</p>
+      </div>
+    </div>
+  </div>
+</div>

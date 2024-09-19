@@ -1,0 +1,124 @@
+<div class="container mt-4">
+  <h2>Users</h2>
+  <table class="table table-striped">
+    <thead class="table-danger">
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Role</th>
+      <th>Age</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>{{ user.role }}</td>
+      <td>{{ user.age }}</td>
+      <td>
+        <button (click)="deleteUser(user.id)" class="btn btn-danger m-1">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="container mt-4">
+  <h2>Orders</h2>
+  <table class="table table-striped">
+    <thead class="table-danger">
+    <tr>
+      <th>ID</th>
+      <th>User</th>
+      <th>Status</th>
+      <th>Cost</th>
+      <th>Products</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let order of orders">
+      <td>{{ order.id }}</td>
+      <td>{{ order.user.email }}</td>
+      <td>
+        <select [(ngModel)]="order.status">
+          <option *ngFor="let status of allStatuses" [ngValue]="status" [disabled]="!isSelectable(status)">
+            {{ status }}
+          </option>
+        </select>
+      </td>
+      <td>{{ order.cost }}</td>
+      <td>{{ order.products.length }}</td>
+      <td>
+        <button (click)="updateOrderStatus(order)" class="btn btn-warning m-1">Edit</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="container mt-4">
+  <h2>Products</h2>
+  <table class="table table-striped">
+    <thead class="table-danger">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Type</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.description }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.type }}</td>
+      <td>
+        <button (click)="deleteProduct(product.id)" class="btn btn-danger m-1">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h3>Add New Product</h3>
+
+  <form (ngSubmit)="addProduct()" #productForm="ngForm">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" name="name" [(ngModel)]="newProduct.name" required>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <input type="text" class="form-control" id="description" name="description" [(ngModel)]="newProduct.description"
+             required>
+    </div>
+    <div class="mb-3">
+      <label for="imageUrl" class="form-label">Image URL</label>
+      <input type="text" class="form-control" id="imageUrl" name="imageUrl" [(ngModel)]="newProduct.imageUrl" required>
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Price</label>
+      <input type="number" class="form-control" id="price" name="price" [(ngModel)]="newProduct.price" step="0.01"
+             required>
+    </div>
+    <div class="mb-3">
+      <label for="type" class="form-label">Type</label>
+      <select class="form-select" id="type" name="type" [(ngModel)]="newProduct.type" required>
+        <option [ngValue]="null" disabled>Select product type</option>
+        <option *ngFor="let type of productTypes" [ngValue]="type">{{ type }}</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Product</button>
+  </form>
+</div>

@@ -3,16 +3,19 @@ package ua.com.alevel.final_project.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import ua.com.alevel.final_project.entity.BaseEntity;
-import ua.com.alevel.final_project.enums.Role;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import ua.com.alevel.final_project.enums.RoleUser;
+
+import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity
-//        implements UserDetails
-{
+public class User extends BaseEntity implements UserDetails {
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -28,55 +31,68 @@ public class User extends BaseEntity
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role;
+    private RoleUser role;
 
-//    private Integer age;
+    private Integer age;
 
-//    @Column(name = "account_non_expired")
-//    private Boolean accountNonExpired;
-//
-//    @Column(name = "account_non_locked")
-//    private Boolean accountNonLocked;
-//
-//    @Column(name = "credentials_non_expired")
-//    private Boolean credentialsNonExpired;
-//
-//    private Boolean enabled;
+    @Column(name = "account_non_expired")
+    private Boolean accountNonExpired;
 
-//    public User() {
-//        accountNonExpired = true;
-//        accountNonLocked = true;
-//        credentialsNonExpired = true;
-//        enabled = true;
-//    }
+    @Column(name = "account_non_locked")
+    private Boolean accountNonLocked;
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return List.of(new SimpleGrantedAuthority(role.name()));
-//    }
+    @Column(name = "credentials_non_expired")
+    private Boolean credentialsNonExpired;
 
-//    @Override
-//    public String getUsername() {
-//        return email;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return accountNonExpired;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return accountNonLocked;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return credentialsNonExpired;
-//    }
-//
-//    @Override
-//    public boolean isEnabled() {
-//        return enabled;
-//    }
+    private Boolean enabled;
+
+    public User(String email, String password, String firstName, String lastName, RoleUser role, Integer age) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+        this.age = age;
+        accountNonExpired = true;
+        accountNonLocked = true;
+        credentialsNonExpired = true;
+        enabled = true;
+    }
+
+    public User() {
+        accountNonExpired = true;
+        accountNonLocked = true;
+        credentialsNonExpired = true;
+        enabled = true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 }

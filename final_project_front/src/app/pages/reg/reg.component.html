@@ -1,0 +1,72 @@
+<div class="custom-product-item m-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="mb-3">
+        <label class="form-label">Email address</label>
+        <input type="email" class="form-control" [(ngModel)]="email" id="emailInput" placeholder="name@example.com"
+               required #emailInput="ngModel">
+        <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
+          Email is required.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" [(ngModel)]="password" id="passwordInput"
+               placeholder="enter your password here" required #passwordInput="ngModel">
+        <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger">
+          Password is required.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">First name</label>
+        <input type="text" class="form-control" [(ngModel)]="first_name" id="firstNameInput"
+               placeholder="enter your first name">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Last name</label>
+        <input type="text" class="form-control" [(ngModel)]="last_name" id="lastNameInput"
+               placeholder="enter your last name">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Age</label>
+        <input type="number" class="form-control" [(ngModel)]="age" id="ageInput" placeholder="enter your age here">
+      </div>
+      <div class="mb-3">
+        <button type="button" class="btn btn-primary btn-lg" [disabled]="emailInput.invalid || passwordInput.invalid"
+                (click)="onCreate()">
+          Create
+        </button>
+      </div>
+      <h6 class="card-text">
+        To log in <a [routerLink]="['/auth/login']">click here</a>
+      </h6>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="regSuccessModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Success</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Your account created!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="noSuccessModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Something wrong!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,7 +7,6 @@ import lombok.Setter;
 import ua.com.alevel.final_project.enums.ProductType;
 
 import java.math.BigDecimal;
-import java.util.Set;
 
 @Getter
 @Setter
